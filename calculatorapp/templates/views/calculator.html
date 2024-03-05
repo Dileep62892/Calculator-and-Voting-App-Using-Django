@@ -1,0 +1,144 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+
+    <title>Django Calculator App</title>
+  </head>
+  <body class="bg-light" style="background-color: #587c96!important;"> 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Calculator App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#instructions">Instructions</a>
+              </li>
+          </ul>
+        </div>
+    </nav>
+    <!-- Header -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="margin: 1rem auto 0 auto;text-align: center;font-style: oblique;font-size: large;">
+                <p style="color:black"><b>Simplify Your Math. Amplify Your Efficiency.</b></p>
+            </div>
+        </div>
+    </div>
+    <!-- Main Part -->
+    <div class="container-fluid" style="margin-bottom: 20rem;">
+        {% if error %}
+        <div class="row">
+            <div class="col-md-6" style="margin: 0 auto;">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if result %}
+        <div class="row">
+            <div class="col-md-6" style="margin: 0 auto;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{q}}={{ans}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %} 
+        <div class="row">
+            <div class="col-md-6" style="margin: 1rem auto 0 auto;">
+                <img src="{% static 'images/img2.png' %}" class="img-fluid" style="margin:0 auto;display: block;">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="GET", action="{% url 'submitquery' %}">
+                            <div class="form-group">
+                                <input type="search" class="form-control" name="query" id="query">
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="submit" class="btn btn-success" style="margin: 1rem auto;display: block;">
+                                </div>
+                                <div class="col-6">
+                                    <input type="reset" class="btn btn-danger" style="margin: 1rem auto;display: block;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- About -->
+        <div class="row">
+            <div class="col-md-6" style="margin: 1rem auto 0 auto;text-align: center;font-style: oblique">
+                <p class="h4" id="about" name="about"><b>ABOUT</b></p>
+                <hr>
+                <p class="lead" style="color: beige; text-align: justify;text-justify: inter-word;">
+                    Welcome to my Calculator App, your ultimate solution for all basic mathematical operations. Designed with simplicity and efficiency in mind, our app is your go-to tool for performing fundamental calculations with ease.
+                    <br>
+                    <br>
+                    <b style="color: black;">Key Features:</b><br>
+                    🔢 <b style="color: black;">Basic Arithmetic:</b> Add, subtract, multiply, and divide with precision and speed.<br>
+                    📈 <b style="color: black;">User-Friendly Interface:</b> Enjoy a straightforward and intuitive design for seamless operation.<br>
+                    ⚡️ <b style="color: black;">Swift Results:</b> Experience quick and accurate answers for all your mathematical queries.<br>
+                    🌐 <b style="color: black;">Versatile and Accessible:</b> Whether you're a student, professional, or anyone in need of quick calculations, Calculator App is here to streamline your math tasks.<br>
+                </p>
+            </div>
+        </div>
+        <!-- Instructions -->
+        <div class="row">
+            <div class="col-md-6" style="margin: 1rem auto 0 auto;text-align: center;font-style: oblique;">
+                <p class="h4" id="instructions" name="instructions"><b>INSTRUCTIONS</b></p>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item"><b>+</b>  Addition</li>
+                    <li class="list-group-item"><b>-</b>  Subtraction/Minus</li>
+                    <li class="list-group-item"><b>*</b>  Multiplication</li>
+                    <li class="list-group-item"><b>/</b>   Division</li>
+                    <li class="list-group-item"><b>//</b>   Floor Division</li>
+                    <li class="list-group-item"><b>**</b>   Exponential</li>
+                    <li class="list-group-item"><b>%</b>   Modulus</li>
+                    <li class="list-group-item"><b>( )</b>   Parenthesis</li>
+                    
+                  </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <footer class="fixed-bottom navbar-light" style="text-align: center;background-color: black;color: white;">
+                    <p>Thanks for using our app</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

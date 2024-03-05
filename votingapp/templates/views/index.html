@@ -1,0 +1,167 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    
+
+    <title>Django Voting App</title>
+  </head>
+  <body class="bg-light" style="background-color: #1a242c!important;color: white"> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Voting App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#instructions">Instructions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#result">Result</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    
+    <!-- Header -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="margin: 1rem auto 0 auto;text-align: center;font-style: oblique;font-size: large;color: white;">
+                <p><b>With great POWER comes great RESPONSIBILITY.</b></p>
+                <p><b>Make a responsible choice. Cast your valuable vote.</b></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Part -->
+    <div class="container-fluid" style="margin-bottom: 20rem;">
+        <div class="row">
+            <div class="col-md-6" style="margin: 1rem auto 0 auto;">
+                <img src="{% static 'images/images.jpeg' %}" class="img-fluid" style="margin:0 auto;display: block;margin-bottom: 1rem;">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="GET", action="{% url 'getquery' %}">
+                            <input list="languages" class="form-control" style="margin-bottom: 1rem;" name="languages">
+                                <datalist id="languages">
+                                    {% for eachlanguage in arr %}
+                                        <option value="{{eachlanguage}}"></option>
+                                    {% endfor %}
+                                </datalist>
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="submit" class="btn btn-success" style="margin: 1rem auto;display: block;">
+                                </div>
+                                <div class="col-6">
+                                    <input type="reset" class="btn btn-danger" style="margin: 1rem auto;display: block;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- Results -->
+        <div class="row">
+            <div class="col-md-6" style="margin: 1rem auto 0 auto;text-align: center; font-style: oblique;">
+                <p class="badge badge-warning" id="result" name="result" style="display:block; font-size: 1.5rem;"><b>RESULTS</b></p>
+                <a href="{% url 'sortdata' %}" class="btn btn-primary" style="margin-bottom: 1rem;">Sort the Data in Descending Order</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center" style="background-color: white;text-align: center;margin: auto;margin-bottom: 1rem;">
+                <div class="table-responsive">
+                    <table class="table" style="align-items: center; font-size: 1rem;">
+                        <thead>
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Languages</th>
+                                <th scope="col">Num. of Votes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key,value in globalcnt.items %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{key}}</td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{value}}%" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="100">{{value}}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- About -->
+        <div class="row">
+            <div class="col-md-6" style="margin: 1rem auto 0 auto;text-align: center;font-style: oblique">
+                <p class="badge badge-success" id="about" name="about" style="display:block; font-size: 1.5rem;"><b>ABOUT</b></p>
+                <hr>
+                <p class="lead" style="color: white; text-align: justify;text-justify: inter-word;">
+                    Welcome to my Voting App. This App is an exciting platform where your opinions shape the outcomes. Express yourself by participating in our user-friendly voting app. We believe in the power of collective decisions, and every vote counts. Join us in making a difference!
+                </p>
+            </div>
+        </div>
+        <!-- Instructions -->
+        <div class="row">
+            <div class="col-md-6" style="margin: 1rem auto 0 auto; text-align: center;font-style: oblique;">
+                <p class="badge badge-danger" id="instructions" name="instructions" style="display:block;font-size: 1.5rem;"><b>INSTRUCTIONS</b></p>
+                <hr>
+                <p style="text-align: justify;text-justify: inter-word;"><b>📌 How to Vote on Voting App 📌</b>
+                    <br>
+                    <b style="color: beige;">Voting Process:</b><br>
+                    1. Explore the current voting categories.<br>
+                    2. Click on the option you support.<br>
+                    3. Confirm your choice and submit.<br>
+                    
+                    <b style="color: beige;">Submission:</b><br>
+                    - Ensure your vote is submitted before the deadline.<br>
+                    - Double-check your selection to avoid errors.<br>
+                    
+                    <b style="color: beige">Counting and Results:</b><br>
+                    - Votes are tallied automatically at the end of the voting period.<br>
+                    - Stay tuned for live updates and final results.<br>
+                    - Winners will be announced after completion of voting.<br>
+                    
+                    <b style="color: beige">Rules and Guidelines:</b><br>
+                    - One vote per user.<br>
+                    - Avoid inappropriate content.<br>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <footer class="fixed-bottom navbar-dark bg-dark" style="text-align: center;color: white;margin: 0 auto;">
+                    <p>Thanks for using our app</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
